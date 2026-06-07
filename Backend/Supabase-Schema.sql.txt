@@ -1,0 +1,37 @@
+-- WARNING: This schema is for context only and is not meant to be run.
+-- Table order and constraints may not be valid for execution.
+
+CREATE TABLE public.market_reports (
+  id uuid NOT NULL DEFAULT gen_random_uuid(),
+  created_at timestamp with time zone NOT NULL DEFAULT now(),
+  updated_at timestamp with time zone NOT NULL DEFAULT now(),
+  report_date date NOT NULL,
+  report_type text NOT NULL DEFAULT 'daily'::text CHECK (report_type = ANY (ARRAY['daily'::text, 'weekly'::text, 'monthly'::text])),
+  headline text,
+  market_summary text,
+  stakeholder_summary text,
+  risk_level text NOT NULL DEFAULT 'Medium'::text CHECK (risk_level = ANY (ARRAY['Low'::text, 'Medium'::text, 'High'::text])),
+  risk_score numeric NOT NULL DEFAULT 50,
+  kpi_json jsonb NOT NULL DEFAULT '{}'::jsonb,
+  ai_report_json jsonb NOT NULL DEFAULT '{}'::jsonb,
+  status text NOT NULL DEFAULT 'draft'::text CHECK (status = ANY (ARRAY['draft'::text, 'reviewed'::text, 'sent'::text, 'failed'::text])),
+  source text DEFAULT 'n8n'::text,
+  model_used text,
+  workflow_run_id text,
+  workflow_version text,
+  generation_status text,
+  trigger_source text,
+  CONSTRAINT market_reports_pkey PRIMARY KEY (id)
+);
+CREATE TABLE public.market_signals (
+  id uuid NOT NULL DEFAULT gen_random_uuid(),
+  created_at timestamp with time zone NOT NULL DEFAULT now(),
+  report_id uuid NOT NULL,
+  signal_title text NOT NULL,
+  severity text NOT NULL DEFAULT 'Medium'::text CHECK (severity = ANY (ARRAY['Low'::text, 'Medium'::text, 'High'::text])),
+  signal_type text NOT NULL DEFAULT 'general'::text CHECK (signal_type = ANY (ARRAY['flow'::text, 'volatility'::text, 'breadth'::text, 'sector'::text, 'index'::text, 'general'::text])),
+  explanation text,
+  suggested_action text,
+  CONSTRAINT market_signals_pkey PRIMARY KEY (id),
+  CONSTRAINT market_signals_report_id_fkey FOREIGN KEY (report_id) REFERENCES public.market_reports(id)
+);
