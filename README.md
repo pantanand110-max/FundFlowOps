@@ -1,42 +1,46 @@
-# FundFlowOps Command Center
+# FundFlowOps
 
-FundFlowOps is an AI-powered market operations intelligence dashboard that transforms market data into automated risk reports, market regime analysis, signal detection, and executive summaries.
+AI-Powered Market Operations Intelligence Platform
 
-## Project Structure
+## Overview
 
-- `Frontend/` - React + Vite + TypeScript dashboard
-- `Backend/` - n8n workflow, Supabase schema, backend setup notes
+FundFlowOps is an AI-driven market intelligence platform that analyzes market data, calculates risk metrics, generates AI-powered reports, and provides operational insights through a modern dashboard.
 
 ## Tech Stack
 
-- Frontend: React, TypeScript, Vite
-- Backend Automation: n8n
-- AI Model: Gemini
-- Database: Supabase
-- Local Tunnel: ngrok
-- Deployment: Vercel
+### Frontend
+- React
+- TypeScript
+- Vite
+- Antigravity AI
 
-## Key Features
+### Backend
+- n8n Workflow Automation
+- Gemini AI
+- Supabase
 
-- AI-generated market intelligence reports
-- KPI dashboard
-- Risk Intelligence Center
-- Market Regime Center
-- Signal detection
-- Report archive and drilldown
-- Executive summary export
-- Presentation mode
-- Webhook secret authentication
-- Supabase Row Level Security
+### Database
+- Supabase PostgreSQL
 
-## Deployment
+## Features
 
-Deploy only the `Frontend/` folder on Vercel.
+- Market KPI calculation
+- Risk scoring engine
+- AI-generated market reports
+- Market regime detection
+- Signal generation
+- Dashboard visualization
+- Report archive
+- Webhook security validation
 
-Required frontend environment variables:
+## Architecture
 
-```env
-VITE_SUPABASE_URL=
-VITE_SUPABASE_ANON_KEY=
-VITE_N8N_WEBHOOK_URL=
-VITE_FUND_FLOWOPS_SECRET=
+Google Sheets → n8n → Gemini AI → Supabase → React Dashboard
+
+## Future Enhancements
+
+- Multi-agent architecture
+- Real-time market feeds
+- Email report distribution
+- Portfolio intelligence
+- Predictive analytics
